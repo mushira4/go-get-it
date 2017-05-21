@@ -1,9 +1,20 @@
 package main
 
 import (
+  //Go libs
+  "io/ioutil"
   "log"
   "net/http"
+  "strconv"
+
+  //External libs
+  "github.com/ghodss/yaml"
 )
+
+type AppConfig struct{
+  Port int 
+  Log string
+}
 
 func init(){
   log.SetPrefix("INFO:")
@@ -15,7 +26,21 @@ func init(){
 
 
 func main(){
-  log.Println("Finally Started") 
+  log.Println("Finally Started")
+
+  data, err := ioutil.ReadFile("/home/ekashivagui/workspace/src/go-get-it/config/local.yaml")
+  if err != nil {
+    panic(err)
+  }
+
+  var config AppConfig
+  err = yaml.Unmarshal(data, &config)
+  log.Println("############################")
+  log.Println("Server Config")
+  log.Println("Port: " + strconv.Itoa(config.Port))
+  log.Println("Log Path: " + config.Log)
+  log.Println("############################")
+
   http.HandleFunc("/health", healthFunction)
   http.ListenAndServe(":8080", nil)
 }
