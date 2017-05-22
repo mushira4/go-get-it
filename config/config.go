@@ -6,6 +6,7 @@ import (
   "strconv"
 
   "github.com/ghodss/yaml"
+  "os"
 )
 
 type AppConfig struct {
@@ -33,7 +34,8 @@ func ReadConfig()(*AppConfig, error) {
   var data []byte
 
   if AppConfiguration == nil {
-    data, err = ioutil.ReadFile("/home/ekashivagui/workspace/src/go-get-it/config/local.yaml")
+    gopath := os.Getenv("GOPATH")
+    data, err = ioutil.ReadFile(gopath + "/src/go-get-it/config/local.yaml")
     if err != nil {
       panic(err)
     }
