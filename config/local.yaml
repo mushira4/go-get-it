@@ -1,2 +1,9 @@
 port: 8080
-log: /var/log/go-get-it
+redisClient:
+  host: localhost
+  port: 6379
+  maxIdleConnections: 3
+  idleTimeout: 240 #inSeconds
+  connectionType: tcp
+  secondsToExpire: 30
+

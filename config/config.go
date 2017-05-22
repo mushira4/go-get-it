@@ -11,24 +11,50 @@ import (
 )
 
 type AppConfig struct {
-  Port int
-  Log string
+  Port string
+  RedisClient RedisClientConfig
 }
 
-func ReadConfig()(AppConfig, error) {
-  data, err := ioutil.ReadFile("/home/ekashivagui/workspace/src/go-get-it/config/local.yaml")
-  if err != nil {
-    panic(err)
+type RedisClientConfig struct {
+  Host string
+  Port string
+  MaxIdleConnections int
+  IdleTimeout int
+  ConnectionType string
+  SecondsToExpire int
+}
+
+func init() {
+  ReadConfig()
+}
+
+var AppConfiguration *AppConfig
+
+func ReadConfig()(*AppConfig, error) {
+  var err error
+  var data []byte
+
+  if AppConfiguration == nil {
+    data, err = ioutil.ReadFile("/home/ekashivagui/workspace/src/go-get-it/config/local.yaml")
+    if err != nil {
+      panic(err)
+    }
+
+
+    err = yaml.Unmarshal(data, &AppConfiguration)
+    log.Println("############################")
+    log.Println("Server Config")
+    log.Println("Port: " + AppConfiguration.Port)
+    log.Println("############################")
+    log.Println("RedisClient Config")
+    log.Println("host: " + AppConfiguration.RedisClient.Host)
+    log.Println("port: " + AppConfiguration.RedisClient.Port)
+    log.Println("maxIdle: " + strconv.Itoa(AppConfiguration.RedisClient.MaxIdleConnections))
+    log.Println("idleTimeout: " +  strconv.Itoa(AppConfiguration.RedisClient.IdleTimeout))
+    log.Println("connectionType: " + AppConfiguration.RedisClient.ConnectionType)
+    log.Println("secondsToExpire: " + strconv.Itoa(AppConfiguration.RedisClient.SecondsToExpire))
+    log.Println("############################")
   }
-
-  var appConfig AppConfig
-  err = yaml.Unmarshal(data, &appConfig)
-  log.Println("############################")
-  log.Println("Server Config")
-  log.Println("Port: " + strconv.Itoa(appConfig.Port))
-  log.Println("Log Path: " + appConfig.Log)
-  log.Println("############################")
-
-  return appConfig, err
+  return AppConfiguration, err
 
 }

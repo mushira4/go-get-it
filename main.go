@@ -4,12 +4,14 @@ import (
 	//Go libs
 	"log"
 	"net/http"
-	"strconv"
 
 	//Internal
 	"go-get-it/action"
 	"go-get-it/config"
 )
+
+var Config *config.AppConfig
+var ConfigError error
 
 func init() {
 	log.SetPrefix("INFO:")
@@ -17,15 +19,17 @@ func init() {
 	log.Println("############################")
 	log.Println("Initializing System")
 	log.Println("############################")
+
+        Config, ConfigError = config.ReadConfig()
+        if ConfigError != nil {
+          panic(ConfigError)
+        }
 }
 
 func main() {
 	log.Println("Finally Started")
-
-	Config, _ := config.ReadConfig()
-
 	http.HandleFunc("/health", action.HealthAction)
-	http.HandleFunc("/send", action.SendAction)
+	http.HandleFunc("/save", action.SaveAction)
 	http.HandleFunc("/retrieve", action.RetrieveAction)
-	http.ListenAndServe(":"+strconv.Itoa(Config.Port), nil)
+	http.ListenAndServe(":" + Config.Port, nil)
 }
