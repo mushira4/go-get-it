@@ -1,12 +1,10 @@
 package config
 
 import (
-  //Go libs
   "io/ioutil"
   "log"
   "strconv"
 
-  //External libs
   "github.com/ghodss/yaml"
 )
 

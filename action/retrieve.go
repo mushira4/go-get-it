@@ -1,16 +1,18 @@
 package action
 
 import (
+	"log"
 	"net/http"
 
+
 	"go-get-it/infrastructure"
-	"log"
 )
 
 func RetrieveAction(response http.ResponseWriter, request *http.Request){
-	values := infrastructure.Retrieve("*")
+	query := request.URL.Query().Get("query")
+	values := infrastructure.Retrieve(query)
         for value := range values {
-		log.Println(value)
+		log.Println(value + " - " + values[value])
 	}
 
 	response.Header().Set("Server", "Go-Get-It Server")
