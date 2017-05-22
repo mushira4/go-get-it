@@ -6,7 +6,7 @@ This project uses the Makefile to manage this project lifecycle
 - Use `make install` to generate the go executable file
 
 ## How to setup
- 1. Configure your $GOPATH to your go workspace is;
+ 1. Configure your `$GOPATH` to your go workspace is;
  2. Execute the `make dependencies` command to dowload the project dependencies to your go workspace;
  3. Execute the `make install` command to generate the app executable
  4. Start a Redis server
