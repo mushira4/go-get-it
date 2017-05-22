@@ -20,5 +20,7 @@ This project uses the Makefile to manage this project lifecycle
 |/save     |(POST)  | Save all parameters that is sent at the redis storage.                                                |
 |/retrieve |(GET)   |Get all the registers that the server has (Sorry it uses KEYS redis command, dont use it in production)|
 
+## Logs
+The project uses the default go lang logger. If you want log rotation, you can use the default linux logrotate to do this.
 
 In case of any doubt, mail me: mushira4@gmail.com    =)
