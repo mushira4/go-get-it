@@ -34,9 +34,16 @@ func ReadConfig()(*AppConfig, error) {
   var data []byte
 
   if AppConfiguration == nil {
-    gopath := os.Getenv("GOPATH")
-    data, err = ioutil.ReadFile(gopath + "/src/go-get-it/config/local.yaml")
-    if err != nil {
+    
+    executablePath, _ := os.Getwd()
+    data, err = ioutil.ReadFile(folderPath + "/local.yaml")
+    
+    if data == nil || err != nil {
+      gopath := os.Getenv("GOPATH")
+      data, err = ioutil.ReadFile(gopath + "/src/go-get-it/config/local.yaml")
+    }
+
+    if data == nil || err != nil {
       panic(err)
     }
 
