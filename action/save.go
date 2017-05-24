@@ -4,10 +4,17 @@ import (
 	"net/http"
 
 	"go-get-it/infrastructure"
+	"encoding/json"
 )
 
 func SaveAction(response http.ResponseWriter, request *http.Request){
-	request.PostFormValue("Mandrake Call")
+	decoder := json.NewDecoder(req.Body)
+	var t test_struct
+	err := decoder.Decode(&t)
+	if err != nil {
+		panic(err)
+	}
+	defer req.Body.Close()
 
 	for key, value := range request.PostForm {
 		infrastructure.Save(key, value[0])

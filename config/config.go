@@ -34,8 +34,8 @@ func ReadConfig()(*AppConfig, error) {
   var data []byte
 
   if AppConfiguration == nil {
-    
-    executablePath, _ := os.Getwd()
+
+    folderPath, _ := os.Getwd()
     data, err = ioutil.ReadFile(folderPath + "/local.yaml")
     
     if data == nil || err != nil {

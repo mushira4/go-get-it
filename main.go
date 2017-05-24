@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	//Internal
-	"go-get-it/action"
+	"go-get-it/route"
 	"go-get-it/config"
 )
 
@@ -28,8 +28,8 @@ func init() {
 
 func main() {
 	log.Println("Finally Started")
-	http.HandleFunc("/health", action.HealthAction)
-	http.HandleFunc("/save", action.SaveAction)
-	http.HandleFunc("/retrieve", action.RetrieveAction)
+
+	route.Routes()
+
 	http.ListenAndServe(":" + Config.Port, nil)
 }
