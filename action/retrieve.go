@@ -14,7 +14,6 @@ func RetrieveAction(response http.ResponseWriter, request *http.Request){
 		log.Println(value + " - " + values[value])
 	}
 
-	response.Header().Set("Server", "Go-Get-It Server")
-	response.WriteHeader(200)
+	infrastructure.WriteOK(response)
 	response.Write([]byte("Retrieved"))
 }

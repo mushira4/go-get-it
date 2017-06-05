@@ -4,9 +4,9 @@ import (
   "io/ioutil"
   "log"
   "strconv"
+  "os"
 
   "github.com/ghodss/yaml"
-  "os"
 )
 
 type AppConfig struct {

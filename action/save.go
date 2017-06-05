@@ -26,7 +26,6 @@ func SaveAction(response http.ResponseWriter, request *http.Request){
 		infrastructure.Save(key, value.(string))
 	}
 
-	response.Header().Set("Server", "Go-Get-It Server")
-	response.WriteHeader(200)
+	infrastructure.WriteOK(response)
 	response.Write([]byte("Saved"))
 }
