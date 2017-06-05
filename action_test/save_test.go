@@ -4,9 +4,11 @@ import (
 	"testing"
 	"net/http"
 	"net/http/httptest"
-	"go-get-it/route"
-	"net/url"
 	"bytes"
+	"encoding/json"
+
+	"go-get-it/route"
+	"go-get-it/action"
 )
 
 
@@ -25,11 +27,10 @@ func TestSaveAction(t * testing.T){
 	{
 		t.Logf("\tWhen checking \"%s\" for status code \"%d\"", resource, statusCode)
 		{
-			data := url.Values{}
-			data.Set("name", "foo")
-			data.Add("surname", "bar")
+			mcPostBody := action.SaveRequest{}
+			data, _ := json.Marshal(mcPostBody)
 
-			req, err := http.NewRequest("POST", resource, bytes.NewBufferString(data.Encode()))
+			req, err := http.NewRequest("POST", resource, bytes.NewReader(data))
 
 			if err != nil {
 				t.Fatalf("\t\tShould be able to make the Get call.\t %s", err, ballotX)

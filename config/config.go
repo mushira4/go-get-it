@@ -47,7 +47,6 @@ func ReadConfig()(*AppConfig, error) {
       panic(err)
     }
 
-
     err = yaml.Unmarshal(data, &AppConfiguration)
     log.Println("############################")
     log.Println("Server Config")
