@@ -7,6 +7,7 @@ import (
   "os"
 
   "github.com/ghodss/yaml"
+  "strings"
 )
 
 type AppConfig struct {
@@ -29,15 +30,25 @@ func init() {
 
 var AppConfiguration *AppConfig
 
-func ReadConfig()(*AppConfig, error) {
+func ReadConfig()(*AppConfig , error){
+  return ReadConfigWithPath("")
+}
+
+func ReadConfigWithPath(specifiedPath string)(*AppConfig , error) {
   var err error
   var data []byte
 
   if AppConfiguration == nil {
 
-    folderPath, _ := os.Getwd()
+    var folderPath string
+    if len(strings.TrimSpace(specifiedPath)) > 0 {
+      folderPath = specifiedPath
+    } else {
+      folderPath, _ = os.Getwd()
+    }
+
     data, err = ioutil.ReadFile(folderPath + "/local.yaml")
-    
+
     if data == nil || err != nil {
       gopath := os.Getenv("GOPATH")
       data, err = ioutil.ReadFile(gopath + "/src/go-get-it/config/local.yaml")

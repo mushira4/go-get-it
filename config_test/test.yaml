@@ -1,0 +1,9 @@
+port: 9999
+redisClient:
+  host: storageHost
+  port: 7777
+  maxIdleConnections: 3
+  idleTimeout: 240 #inSeconds
+  connectionType: tcp
+  secondsToExpire: 30
+
