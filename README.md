@@ -3,6 +3,7 @@ Go + Redis app that allows to get and cache information via an API
 
 This project uses the Makefile to manage this project lifecycle  
 - Use `make dependecies` to download the libraries the project uses
+- Use `make test` to run the app tests the
 - Use `make install` to generate the go executable file
 
 ## How to setup
@@ -20,6 +21,15 @@ This project uses the Makefile to manage this project lifecycle
 |/save           |(POST)  | Save all parameters that is sent at the redis storage.                                                |
 |/retrieve       |(GET)   |Get all the registers that the server has (Sorry it uses KEYS redis command, dont use it in production)|
 |/retrieve?query |(GET)   |Get registers that matches the pattern (Sorry it uses KEYS redis command, dont use it in production)|
+
+### Samples
+/save - request sample
+`{
+    "aa" : "a",
+    "ab" : "b",
+    "CC" : "c",
+    "cD" : "d"
+}`
 
 ## Logs
 The project uses the default go lang logger. If you want log rotation, you can use the default linux logrotate to do this.
