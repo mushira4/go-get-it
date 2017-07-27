@@ -2,25 +2,30 @@ package action
 
 import (
 	"net/http"
+	"encoding/json"
+	"log"
 
 	"go-get-it/infrastructure"
-	"encoding/json"
 )
 
+type SaveRequest struct {
+	keys map[string] interface{}
+}
+
 func SaveAction(response http.ResponseWriter, request *http.Request){
-	decoder := json.NewDecoder(req.Body)
-	var t test_struct
-	err := decoder.Decode(&t)
+	decoder := json.NewDecoder(request.Body)
+	var saveRequest SaveRequest
+	err := decoder.Decode(&saveRequest.keys)
 	if err != nil {
 		panic(err)
 	}
-	defer req.Body.Close()
+	defer request.Body.Close()
 
-	for key, value := range request.PostForm {
-		infrastructure.Save(key, value[0])
+	for key, value := range saveRequest.keys {
+		log.Printf("key[%s] value[%s]\n", key, value)
+		infrastructure.Save(key, value.(string))
 	}
 
-	response.Header().Set("Server", "Go-Get-It Server")
-	response.WriteHeader(200)
+	infrastructure.WriteOK(response)
 	response.Write([]byte("Saved"))
 }

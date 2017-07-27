@@ -15,3 +15,5 @@
 
 # IDEs
 *.idea*
+**/*.idea*
+.idea/

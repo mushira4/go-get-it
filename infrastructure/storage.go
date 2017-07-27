@@ -2,7 +2,6 @@ package infrastructure
 
 import (
 	"log"
-	"strings"
 	"time"
 
 	"github.com/garyburd/redigo/redis"
@@ -39,19 +38,12 @@ func Save(key string, value string){
 }
 
 func Retrieve(searchQuery string) map[string] string {
-	var query string
-	if len(strings.TrimSpace(searchQuery)) == 0 {
-	  	query = "*"
-	} else {
-		query = "*" + searchQuery + "*"
-	}
-
-	log.Println("Retrieving Values - query = " + query)
+	log.Println("Retrieving Values - query = " + searchQuery)
 
 	c := Pool.Get()
 	defer c.Close()
 
-	found,_:=redis.Strings(c.Do("KEYS", query))
+	found,_:=redis.Strings(c.Do("KEYS", searchQuery))
 	var returnMap = make(map[string] string)
 	for _, key := range found {
 		binaryValue,err:= c.Do("get", key)

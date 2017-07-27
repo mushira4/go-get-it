@@ -1,9 +1,12 @@
 package action
 
-import "net/http"
+import (
+	"net/http"
+
+	"go-get-it/infrastructure"
+)
 
 func HealthAction(response http.ResponseWriter, request *http.Request){
-	response.Header().Set("Server", "Go-Get-It Server")
-	response.WriteHeader(200)
+	infrastructure.WriteOK(response)
 	response.Write([]byte("OK"))
 }
