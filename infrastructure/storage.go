@@ -23,8 +23,6 @@ func init(){
 
 
 func Save(key string, value string){
-	log.Printf("Saving Value %s - %s ", key, value )
-
 	c := Pool.Get()
 	defer c.Close()
 
@@ -38,8 +36,6 @@ func Save(key string, value string){
 }
 
 func Retrieve(searchQuery string) map[string] string {
-	log.Println("Retrieving Values - query = " + searchQuery)
-
 	c := Pool.Get()
 	defer c.Close()
 

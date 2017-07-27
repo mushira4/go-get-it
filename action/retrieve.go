@@ -4,9 +4,13 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"encoding/json"
+	"fmt"
 
 	"go-get-it/infrastructure"
+
 )
+
 
 func RetrieveAction(response http.ResponseWriter, request *http.Request){
 	query := request.URL.Query().Get("query")
@@ -25,5 +29,12 @@ func RetrieveAction(response http.ResponseWriter, request *http.Request){
 	}
 
 	infrastructure.WriteOK(response)
-	response.Write([]byte("Retrieved"))
+
+	b, err := json.Marshal(values)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	response.Write([]byte(string(b)))
 }
