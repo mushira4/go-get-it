@@ -16,10 +16,10 @@ func RetrieveAction(response http.ResponseWriter, request *http.Request){
 	if len(strings.TrimSpace(query)) == 0 {
 		searchQuery = "*"
 	} else {
-		searchQuery = "*" + searchQuery + "*"
+		searchQuery = "*" + query + "*"
 	}
 
-	values := infrastructure.Retrieve(query)
+	values := infrastructure.Retrieve(searchQuery)
         for value := range values {
 		log.Println(value + " - " + values[value])
 	}
