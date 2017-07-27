@@ -4,6 +4,7 @@ import (
 	//Go libs
 	"log"
 	"net/http"
+	"runtime"
 
 	//Internal
 	"go-get-it/route"
@@ -28,6 +29,11 @@ func init() {
 
 func main() {
 	log.Println("Finally Started")
+
+	/**
+	 * Setting up the max number of possible cores to use.
+	 */
+	runtime.GOMAXPROCS(runtime.NumCPU())
 
 	route.Routes()
 
