@@ -11,7 +11,6 @@ import (
 	"go-get-it/action"
 )
 
-
 const checkMark = "\u2713"
 const ballotX = "\u2717"
 
@@ -19,7 +18,7 @@ func init() {
 	route.Routes()
 }
 
-func TestSaveAction(t * testing.T){
+func TestSaveAction(t *testing.T){
 	resource := "/save"
 	statusCode := 200
 

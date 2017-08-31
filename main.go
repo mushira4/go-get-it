@@ -7,12 +7,11 @@ import (
 	"runtime"
 
 	//Internal
-	"go-get-it/route"
 	"go-get-it/config"
+	"go-get-it/route"
 )
 
 var Config *config.AppConfig
-var ConfigError error
 
 func init() {
 	log.SetPrefix("INFO:")
@@ -20,15 +19,12 @@ func init() {
 	log.Println("############################")
 	log.Println("Initializing System")
 	log.Println("############################")
-
-        Config, ConfigError = config.ReadConfig()
-        if ConfigError != nil {
-          panic(ConfigError)
-        }
 }
 
 func main() {
+	log.Println("############################")
 	log.Println("Finally Started")
+	log.Println("############################")
 
 	/**
 	 * Setting up the max number of possible cores to use.
@@ -37,5 +33,5 @@ func main() {
 
 	route.Routes()
 
-	http.ListenAndServe(":" + Config.Port, nil)
+	http.ListenAndServe(":"+Config.Port, nil)
 }

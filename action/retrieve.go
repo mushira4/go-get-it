@@ -8,10 +8,11 @@ import (
 	"fmt"
 
 	"go-get-it/infrastructure"
-
 )
 
-
+/**
+ * RetrieveAction is the action endpoint responsible for retrieve the stored valid data.
+ */
 func RetrieveAction(response http.ResponseWriter, request *http.Request){
 	query := request.URL.Query().Get("query")
 
@@ -23,18 +24,18 @@ func RetrieveAction(response http.ResponseWriter, request *http.Request){
 		searchQuery = "*" + query + "*"
 	}
 
-	values := infrastructure.Retrieve(searchQuery)
-        for value := range values {
-		log.Println(value + " - " + values[value])
+	searchRetrieve := infrastructure.Retrieve(searchQuery)
+	for value := range searchRetrieve {
+		log.Println(value + " - " + searchRetrieve[value])
 	}
 
 	infrastructure.WriteOK(response)
 
-	b, err := json.Marshal(values)
+	values, err := json.Marshal(searchRetrieve)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	response.Write([]byte(string(b)))
+	response.Write([]byte(string(values)))
 }

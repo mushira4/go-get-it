@@ -4,10 +4,9 @@ import (
   "io/ioutil"
   "log"
   "strconv"
-  "os"
 
   "github.com/ghodss/yaml"
-  "strings"
+  "os"
 )
 
 type AppConfig struct {
@@ -24,54 +23,55 @@ type RedisClientConfig struct {
   SecondsToExpire int
 }
 
+var Config *AppConfig
+
 func init() {
-  ReadConfig()
+  var defaultFilePath = "src/go-get-it/local.yaml"
+
+  goPath := os.Getenv("GOPATH")
+  ReadConfig([]string{goPath + "/" + defaultFilePath})
 }
 
-var AppConfiguration *AppConfig
-
-func ReadConfig()(*AppConfig , error){
-  return ReadConfigWithPath("")
+/**
+ * ReadConfig reads the configuration file.
+ */
+func ReadConfig(specifiedPaths []string)(*AppConfig){
+  return readConfigWithPath(specifiedPaths)
 }
 
-func ReadConfigWithPath(specifiedPath string)(*AppConfig , error) {
-  var err error
-  var data []byte
+func readConfigWithPath(specifiedPaths []string)(*AppConfig) {
+  configFileSearcher := ConfigFileSearcher{specifiedPaths: specifiedPaths}
 
-  if AppConfiguration == nil {
-
-    var folderPath string
-    if len(strings.TrimSpace(specifiedPath)) > 0 {
-      folderPath = specifiedPath
-    } else {
-      folderPath, _ = os.Getwd()
-    }
-
-    data, err = ioutil.ReadFile(folderPath + "/local.yaml")
-
-    if data == nil || err != nil {
-      gopath := os.Getenv("GOPATH")
-      data, err = ioutil.ReadFile(gopath + "/src/go-get-it/config/local.yaml")
-    }
-
-    if data == nil || err != nil {
-      panic(err)
-    }
-
-    err = yaml.Unmarshal(data, &AppConfiguration)
-    log.Println("############################")
-    log.Println("Server Config")
-    log.Println("Port: " + AppConfiguration.Port)
-    log.Println("############################")
-    log.Println("RedisClient Config")
-    log.Println("host: " + AppConfiguration.RedisClient.Host)
-    log.Println("port: " + AppConfiguration.RedisClient.Port)
-    log.Println("maxIdle: " + strconv.Itoa(AppConfiguration.RedisClient.MaxIdleConnections))
-    log.Println("idleTimeout: " +  strconv.Itoa(AppConfiguration.RedisClient.IdleTimeout))
-    log.Println("connectionType: " + AppConfiguration.RedisClient.ConnectionType)
-    log.Println("secondsToExpire: " + strconv.Itoa(AppConfiguration.RedisClient.SecondsToExpire))
-    log.Println("############################")
+  filePath, err := configFileSearcher.SearchFile()
+  if err != nil {
+    log.Panic("File path is not valid.", err)
   }
-  return AppConfiguration, err
 
+  data, err := ioutil.ReadFile(filePath)
+  if err != nil {
+    log.Panic("It was not possible to read the file.", err)
+  }
+
+  unmarshallYamlData(data)
+  log.Println("############################")
+  log.Println("Server Config")
+  log.Println("Port: " + Config.Port)
+  log.Println("############################")
+  log.Println("RedisClient Config")
+  log.Println("host: " + Config.RedisClient.Host)
+  log.Println("port: " + Config.RedisClient.Port)
+  log.Println("maxIdle: " + strconv.Itoa(Config.RedisClient.MaxIdleConnections))
+  log.Println("idleTimeout: " + strconv.Itoa(Config.RedisClient.IdleTimeout))
+  log.Println("connectionType: " + Config.RedisClient.ConnectionType)
+  log.Println("secondsToExpire: " + strconv.Itoa(Config.RedisClient.SecondsToExpire))
+  log.Println("############################")
+  return Config
+
+}
+
+func unmarshallYamlData(data []byte) {
+  err := yaml.Unmarshal(data, &Config)
+  if err != nil {
+    log.Fatal("Error: ", err)
+  }
 }

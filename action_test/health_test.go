@@ -6,8 +6,7 @@ import (
 	"net/http/httptest"
 )
 
-
-func TestHealthAction(t * testing.T){
+func TestHealthAction(t *testing.T){
 	resource := "/health"
 	statusCode := 200
 

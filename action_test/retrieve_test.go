@@ -4,12 +4,9 @@ import (
 	"testing"
 	"net/http"
 	"net/http/httptest"
-
 )
 
-
-
-func TestRetrieveAction(t * testing.T){
+func TestRetrieveAction(t *testing.T){
 	resource := "/retrieve"
 	statusCode := 200
 
