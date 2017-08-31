@@ -11,14 +11,14 @@ import (
 	"go-get-it/route"
 )
 
-var Config *config.AppConfig
 
 func init() {
 	log.SetPrefix("INFO:")
 	log.SetFlags(log.Ldate | log.Lmicroseconds | log.Lshortfile)
 	log.Println("############################")
 	log.Println("Initializing System")
-	log.Println("############################")
+
+
 }
 
 func main() {
@@ -33,5 +33,5 @@ func main() {
 
 	route.Routes()
 
-	http.ListenAndServe(":"+Config.Port, nil)
+	http.ListenAndServe(":"+config.Config.Port, nil)
 }

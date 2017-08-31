@@ -4,9 +4,12 @@ import (
   "io/ioutil"
   "log"
   "strconv"
+  "os"
+  "flag"
 
   "github.com/ghodss/yaml"
-  "os"
+
+
 )
 
 type AppConfig struct {
@@ -26,10 +29,18 @@ type RedisClientConfig struct {
 var Config *AppConfig
 
 func init() {
-  var defaultFilePath = "src/go-get-it/local.yaml"
+  filePath := flag.String("configPath", "", "specific configuration file path")
 
+  flag.Parse()
+
+  defaultFilePath := "src/go-get-it/local.yaml"
   goPath := os.Getenv("GOPATH")
-  ReadConfig([]string{goPath + "/" + defaultFilePath})
+  if filePath != nil {
+    ReadConfig([]string{goPath + "/" + defaultFilePath, *filePath})
+  } else {
+    ReadConfig([]string{goPath + "/" + defaultFilePath})
+  }
+
 }
 
 /**
