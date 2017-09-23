@@ -1,12 +1,12 @@
 package action_test
 
 import (
-	"testing"
 	"net/http"
 	"net/http/httptest"
+	"testing"
 )
 
-func TestHealthAction(t *testing.T){
+func TestHealthAction(t *testing.T) {
 	resource := "/health"
 	statusCode := 200
 

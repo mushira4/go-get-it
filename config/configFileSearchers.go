@@ -1,10 +1,10 @@
 package config
 
 import (
-	"os"
-	"log"
-	"strings"
 	"errors"
+	"log"
+	"os"
+	"strings"
 )
 
 type ConfigFileSearcher struct {
@@ -15,9 +15,9 @@ type ConfigFileSearcher struct {
  * SearchFile searchs for a the first valid path specified
  */
 func (fileSearcher *ConfigFileSearcher) SearchFile() (string, error) {
-	for _,specifiedPath := range fileSearcher.specifiedPaths {
+	for _, specifiedPath := range fileSearcher.specifiedPaths {
 		if len(validatePathName(specifiedPath)) > 0 {
-			if _,err := os.Stat(specifiedPath); !os.IsNotExist(err) {
+			if _, err := os.Stat(specifiedPath); !os.IsNotExist(err) {
 				return specifiedPath, nil
 			}
 		}

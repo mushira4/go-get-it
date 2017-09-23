@@ -9,7 +9,7 @@ import (
 /**
  * Routes define all the routes used by the server
  */
-func Routes(){
+func Routes() {
 	http.HandleFunc("/health", action.HealthAction)
 	http.HandleFunc("/save", action.SaveAction)
 	http.HandleFunc("/retrieve", action.RetrieveAction)

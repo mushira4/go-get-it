@@ -1,22 +1,22 @@
 package action
 
 import (
-	"net/http"
 	"encoding/json"
-	"log"
 	"fmt"
+	"log"
+	"net/http"
 
 	"go-get-it/infrastructure"
 )
 
 type SaveRequest struct {
-	keys map[string] interface{}
+	keys map[string]interface{}
 }
 
 /**
  * SaveAction is the action endpoint responsible for save data into the storage.
  */
-func SaveAction(response http.ResponseWriter, request *http.Request){
+func SaveAction(response http.ResponseWriter, request *http.Request) {
 	decoder := json.NewDecoder(request.Body)
 	var saveRequest SaveRequest
 	err := decoder.Decode(&saveRequest.keys)

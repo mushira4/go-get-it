@@ -1,11 +1,11 @@
 package action
 
 import (
+	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"strings"
-	"encoding/json"
-	"fmt"
 
 	"go-get-it/infrastructure"
 )
@@ -13,7 +13,7 @@ import (
 /**
  * RetrieveAction is the action endpoint responsible for retrieve the stored valid data.
  */
-func RetrieveAction(response http.ResponseWriter, request *http.Request){
+func RetrieveAction(response http.ResponseWriter, request *http.Request) {
 	query := request.URL.Query().Get("query")
 
 	var searchQuery string

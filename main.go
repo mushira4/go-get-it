@@ -11,14 +11,11 @@ import (
 	"go-get-it/route"
 )
 
-
 func init() {
 	log.SetPrefix("INFO:")
 	log.SetFlags(log.Ldate | log.Lmicroseconds | log.Lshortfile)
 	log.Println("############################")
 	log.Println("Initializing System")
-
-
 }
 
 func main() {

@@ -1,12 +1,12 @@
 package action_test
 
 import (
-	"testing"
 	"net/http"
 	"net/http/httptest"
+	"testing"
 )
 
-func TestRetrieveAction(t *testing.T){
+func TestRetrieveAction(t *testing.T) {
 	resource := "/retrieve"
 	statusCode := 200
 

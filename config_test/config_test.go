@@ -7,7 +7,7 @@ import (
 	"go-get-it/config"
 )
 
-func TestReadConfig(t *testing.T){
+func TestReadConfig(t *testing.T) {
 
 	t.Log("Given the test.yaml resource.")
 	{

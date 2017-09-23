@@ -1,14 +1,14 @@
 package action_test
 
 import (
-	"testing"
-	"net/http"
-	"net/http/httptest"
 	"bytes"
 	"encoding/json"
+	"net/http"
+	"net/http/httptest"
+	"testing"
 
-	"go-get-it/route"
 	"go-get-it/action"
+	"go-get-it/route"
 )
 
 const checkMark = "\u2713"
@@ -18,7 +18,7 @@ func init() {
 	route.Routes()
 }
 
-func TestSaveAction(t *testing.T){
+func TestSaveAction(t *testing.T) {
 	resource := "/save"
 	statusCode := 200
 
