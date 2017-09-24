@@ -1,13 +1,16 @@
 # go-get-it
 Go + Redis app that allows to get and cache information via an API
 
+*Current stable version: 0.1.1*
+
 ## Dependencies
 - go dep - Used to manage 3rd party libs dependencies
 - github.com/garyburd/redigo - Redis lib, used to comunicate with redis
 - github.com/ghodss/yaml - Yaml file reader lib, used to reaad the configuration file
 
 ## Lifecycle
-This project uses the Makefile to manage this project lifecycle  
+This project uses the Makefile to manage this project lifecycle
+- Install the go dep `go get -u github.com/golang/dep/cmd/dep`
 - Use `make dependecies` to download the libraries the project uses
 - Use `make test` to run the app tests the
 - Use `make install` to generate the go executable file
