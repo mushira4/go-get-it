@@ -33,12 +33,14 @@ This project uses the Makefile to manage this project lifecycle
 
 ### Samples
 /save - request sample
-`{
+```javascript
+{
     "aa" : "a",
     "ab" : "b",
     "CC" : "c",
     "cD" : "d"
-}`
+}
+```
 
 ## Logs
 The project uses the default go lang logger. If you want log rotation, you can use the default linux logrotate to do this.
