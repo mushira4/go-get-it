@@ -32,7 +32,7 @@ This project uses the Makefile to manage this project lifecycle
 |/retrieve?query |(GET)   |Get registers that matches the pattern (Sorry it uses KEYS redis command, dont use it in production)|
 
 ### Samples
-/save - request sample
+/save (POST)
 ```javascript
 {
     "aa" : "a",
@@ -41,6 +41,7 @@ This project uses the Makefile to manage this project lifecycle
     "cD" : "d"
 }
 ```
+
 
 ## Logs
 The project uses the default go lang logger. If you want log rotation, you can use the default linux logrotate to do this.
