@@ -2,12 +2,15 @@ VERSION_FILE=version.txt
 MAJOR=$(shell cat $(VERSION_FILE) | cut -d'.' -f1)
 MINOR=$(shell cat $(VERSION_FILE) | cut -d'.' -f2)
 PATCH=$(shell cat $(VERSION_FILE) | cut -d'.' -f3)
-
 OLD_VERSION=$(MAJOR).$(MINOR).$(PATCH)
-NEW_PATCH_VERSION=$(shell echo $(MAJOR).$(MINOR).$$(($(PATCH) + 1)))
-NEW_MINOR_VERSION=$(shell echo $(MAJOR).$$(($(MINOR) +1)).$(PATCH))
-NEW_MAJOR_VERSION=$(shell echo $$(($(MAJOR) +1)).$(MINOR).$(PATCH))
 
+define change-version =
+	@echo Old Version: $(OLD_VERSION)
+	@echo New Version: $(NEW_VERSION)
+	@echo $(NEW_VERSION) > $(VERSION_FILE)
+	
+	sed -i -e 's/${OLD_VERSION}/${NEW_VERSION}/g' README.md
+endef
 
 dependencies:
 	dep ensure
@@ -21,25 +24,15 @@ install:
 	make test
 	go install
 
+releasePatch: NEW_VERSION=$(shell echo $(MAJOR).$(MINOR).$$(($(PATCH) + 1)))
 releasePatch:
-	@echo Old Version: $(OLD_VERSION)
-	@echo New Version: $(NEW_PATCH_VERSION)
-	@echo $(NEW_PATCH_VERSION) > $(VERSION_FILE)
-	
-	sed -i -e 's/${OLD_VERSION}/${NEW_PATCH_VERSION}/g' README.md
+	$(change-version)
 
-
+releaseMinor: NEW_VERSION=$(shell echo $(MAJOR).$$(($(MINOR) +1)).$(PATCH))
 releaseMinor:
-	@echo Old Version: $(OLD_VERSION)
-	@echo New Version: $(NEW_MINOR_VERSION)
-	@echo $(NEW_MINOR_VERSION) > $(VERSION_FILE)
-	
-	sed -i -e 's/${OLD_VERSION}/${NEW_MINOR_VERSION}/g' README.md
-	
+	$(change-version)
+
+releaseMajor: NEW_VERSION=$(shell echo $$(($(MAJOR) +1)).$(MINOR).$(PATCH))
 releaseMajor:
-	@echo Old Version: $(OLD_VERSION)
-	@echo New Version: $(NEW_MAJOR_VERSION)
-	@echo $(NEW_MAJOR_VERSION) > $(VERSION_FILE)
-	
-	sed -i -e 's/${OLD_VERSION}/${NEW_MAJOR_VERSION}/g' README.md
+	$(change-version)
 

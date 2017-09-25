@@ -1,7 +1,7 @@
 # go-get-it
 Go + Redis app that allows to get and cache information via an API
 
-*Current stable version: 0.1.1*
+*Current stable version: 0.1.3*
 
 ## Dependencies
 - go dep - Used to manage 3rd party libs dependencies
