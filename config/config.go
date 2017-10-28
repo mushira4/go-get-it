@@ -8,6 +8,8 @@ import (
 	"strconv"
 
 	"github.com/ghodss/yaml"
+
+	"go-get-it/infrastructure/logger"
 )
 
 type AppConfig struct {
@@ -52,12 +54,12 @@ func readConfigWithPath(specifiedPaths []string) *AppConfig {
 
 	filePath, err := configFileSearcher.SearchFile()
 	if err != nil {
-		log.Panic("File path is not valid.", err)
+		logger.SimpleLogger().Panic(err)
 	}
 
 	data, err := ioutil.ReadFile(filePath)
 	if err != nil {
-		log.Panic("It was not possible to read the file.", err)
+		logger.SimpleLogger().Panic(err)
 	}
 
 	unmarshallYamlData(data)
@@ -80,6 +82,6 @@ func readConfigWithPath(specifiedPaths []string) *AppConfig {
 func unmarshallYamlData(data []byte) {
 	err := yaml.Unmarshal(data, &Config)
 	if err != nil {
-		log.Fatal("Error: ", err)
+		logger.SimpleLogger().Fatal(err)
 	}
 }

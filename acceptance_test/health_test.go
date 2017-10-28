@@ -1,4 +1,4 @@
-package action_test
+package acceptance_test
 
 import (
 	"net/http"
@@ -6,11 +6,11 @@ import (
 	"testing"
 )
 
-func TestRetrieveAction(t *testing.T) {
-	resource := "/retrieve"
+func TestHealthAction(t *testing.T) {
+	resource := "/health"
 	statusCode := 200
 
-	t.Log("Given the /retrieve resource.")
+	t.Log("Given the /health resource.")
 	{
 		t.Logf("\tWhen checking \"%s\" for status code \"%d\"", resource, statusCode)
 		{

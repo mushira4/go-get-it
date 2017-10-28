@@ -1,9 +1,9 @@
-package route
+package controller
 
 import (
 	"net/http"
 
-	"go-get-it/action"
+	"go-get-it/controller/action"
 )
 
 /**

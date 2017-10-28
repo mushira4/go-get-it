@@ -2,11 +2,10 @@ package action
 
 import (
 	"encoding/json"
-	"fmt"
-	"log"
 	"net/http"
 
 	"go-get-it/infrastructure"
+	"go-get-it/infrastructure/logger"
 )
 
 type SaveRequest struct {
@@ -21,13 +20,12 @@ func SaveAction(response http.ResponseWriter, request *http.Request) {
 	var saveRequest SaveRequest
 	err := decoder.Decode(&saveRequest.keys)
 	if err != nil {
-		fmt.Println(err)
-		panic(err)
+		logger.EmptyLogger().Panic(err)
 	}
 	defer request.Body.Close()
 
 	for key, value := range saveRequest.keys {
-		log.Printf("key[%s] value[%s]\n", key, value)
+		logger.Append(key, value.(string)).Info()
 		infrastructure.Save(key, value.(string))
 	}
 

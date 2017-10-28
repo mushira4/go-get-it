@@ -1,12 +1,12 @@
 package infrastructure
 
 import (
-	"log"
 	"time"
 
 	"github.com/garyburd/redigo/redis"
 
 	"go-get-it/config"
+	"go-get-it/infrastructure/logger"
 )
 
 var Pool redis.Pool
@@ -31,8 +31,7 @@ func Save(key string, value string) {
 	var _, err = c.Do("SETEX", key, secondsToExpire, value)
 
 	if err != nil {
-		log.Println(err)
-		panic(err)
+		logger.EmptyLogger().Panic(err)
 	}
 }
 
@@ -42,8 +41,7 @@ func Retrieve(searchQuery string) map[string]string {
 
 	foundValues, err := redis.Strings(c.Do("KEYS", searchQuery))
 	if err != nil {
-		log.Println(err)
-		panic(err)
+		logger.EmptyLogger().Panic(err)
 	}
 
 	var returnMap = make(map[string]string)

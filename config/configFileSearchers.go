@@ -2,7 +2,7 @@ package config
 
 import (
 	"errors"
-	"log"
+	"go-get-it/infrastructure/logger"
 	"os"
 	"strings"
 )
@@ -34,7 +34,7 @@ func validatePathName(specifiedPath string) string {
 		var err error
 		folderPath, err = os.Getwd()
 		if err != nil {
-			log.Fatal("Error: ", err)
+			logger.EmptyLogger().Fatal(err)
 		}
 	}
 	return folderPath

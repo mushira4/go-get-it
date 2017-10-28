@@ -1,4 +1,4 @@
-package action_test
+package acceptance_test
 
 import (
 	"bytes"
@@ -7,15 +7,15 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"go-get-it/action"
-	"go-get-it/route"
+	"go-get-it/controller"
+	"go-get-it/controller/action"
 )
 
 const checkMark = "\u2713"
 const ballotX = "\u2717"
 
 func init() {
-	route.Routes()
+	controller.Routes()
 }
 
 func TestSaveAction(t *testing.T) {

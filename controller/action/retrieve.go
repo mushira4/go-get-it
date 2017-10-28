@@ -3,11 +3,11 @@ package action
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"strings"
 
 	"go-get-it/infrastructure"
+	"go-get-it/infrastructure/logger"
 )
 
 /**
@@ -25,9 +25,11 @@ func RetrieveAction(response http.ResponseWriter, request *http.Request) {
 	}
 
 	searchRetrieve := infrastructure.Retrieve(searchQuery)
+	actionLogger := logger.SimpleLogger()
 	for value := range searchRetrieve {
-		log.Println(value + " - " + searchRetrieve[value])
+		actionLogger.Append(value, searchRetrieve[value])
 	}
+	actionLogger.Info()
 
 	infrastructure.WriteOK(response)
 
