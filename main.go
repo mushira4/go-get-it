@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"runtime"
 
-	"go-get-it/config"
 	"go-get-it/controller"
+	"go-get-it/infrastructure/config"
 )
 
 func main() {

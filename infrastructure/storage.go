@@ -5,7 +5,7 @@ import (
 
 	"github.com/garyburd/redigo/redis"
 
-	"go-get-it/config"
+	"go-get-it/infrastructure/config"
 	"go-get-it/infrastructure/logger"
 )
 
