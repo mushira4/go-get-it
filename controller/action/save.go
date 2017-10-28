@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"go-get-it/infrastructure"
 	"go-get-it/infrastructure/logger"
+	"go-get-it/infrastructure/storage"
 )
 
 type SaveRequest struct {
