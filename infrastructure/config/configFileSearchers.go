@@ -12,7 +12,7 @@ type ConfigFileSearcher struct {
 }
 
 /**
- * SearchFile searchs for a the first valid path specified
+ * SearchFile searches for a the first valid path specified
  */
 func (fileSearcher *ConfigFileSearcher) SearchFile() (string, error) {
 	for _, specifiedPath := range fileSearcher.specifiedPaths {
