@@ -7,11 +7,19 @@ import (
 	"time"
 )
 
+//APP name 
 const APP = "go-get-it"
 
+//BLUE color
 const BLUE = "\033[1;34m"
+
+//YELLOW color
 const YELLOW = "\033[1;33m"
+
+//RED color
 const RED = "\033[0;31m"
+
+//END of the color
 const END_COLOR = "\033[0m"
 
 func init() {
